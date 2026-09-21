@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Own Your Next Move | Mid-Career Pivot Lab</title>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  :root{
+    --ink:#182033;
+    --muted:#667085;
+    --line:#e6e9ef;
+    --soft:#f7f8fb;
+    --white:#ffffff;
+    --primary:#6558f5;
+    --primary-dark:#4e43d3;
+    --primary-soft:#eeecff;
+    --teal:#2f7e7a;
+    --teal-soft:#eaf6f5;
+    --gold:#d9901f;
+    --gold-soft:#fff6e5;
+    --green:#168b68;
+    --green-soft:#e8f8f1;
+    --red:#c54b4b;
+    --red-soft:#fff0f0;
+    --shadow:0 12px 34px rgba(24,32,51,.07);
+  }
+
+  body{
+    margin:0;
+    background:#fff;
+    color:var(--ink);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    line-height:1.55;
+  }
+
+  #midcareer-pivot-lab,
+  #midcareer-pivot-lab *{ box-sizing:border-box; }
+
+  #midcareer-pivot-lab button,
+  #midcareer-pivot-lab input,
+  #midcareer-pivot-lab textarea,
+  #midcareer-pivot-lab select{ font:inherit; }
+
+  #midcareer-pivot-lab button{ cursor:pointer; }
+
+  .mc-wrap{
+    width:min(1180px,calc(100% - 32px));
+    margin:0 auto;
+  }
+
+  /* HERO */
+  .mc-hero{
+    position:relative;
+    overflow:hidden;
+    padding:76px 0 68px;
+    color:#fff;
+    background:
+      radial-gradient(circle at 84% 18%,rgba(255,255,255,.18),transparent 25%),
+      radial-gradient(circle at 8% 82%,rgba(255,255,255,.1),transparent 26%),
+      linear-gradient(135deg,#27225e 0%,#6558f5 56%,#7f76ff 100%);
+  }
+
+  .mc-hero:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:.08;
+    background-image:
+      linear-gradient(rgba(255,255,255,.25) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.25) 1px,transparent 1px);
+    background-size:48px 48px;
+  }
+
+  .mc-hero-grid{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);
+    gap:44px;
+    align-items:center;
+  }
+
+  .mc-eyebrow{
+    display:inline-flex;
+    gap:8px;
+    align-items:center;
+    padding:8px 13px;
+    margin-bottom:18px;
+    border:1px solid rgba(255,255,255,.24);
+    border-radius:999px;
+    background:rgba(255,255,255,.11);
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+
+  .mc-hero h1{
+    max-width:760px;
+    margin:0 0 18px;
+    color:#fff;
+    font-size:clamp(42px,6vw,74px);
+    line-height:.98;
+    letter-spacing:-.055em;
+  }
+
+  .mc-hero p{
+    max-width:720px;
+    margin:0;
+    color:rgba(255,255,255,.86);
+    font-size:clamp(17px,2vw,21px);
+  }
+
+  .mc-hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:28px;
+  }
+
+  .mc-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-height:46px;
+    padding:12px 18px;
+    border:0;
+    border-radius:12px;
+    background:var(--primary);
+    color:#fff;
+    text-decoration:none;
+    font-weight:800;
+    transition:.18s ease;
+  }
+
+  .mc-btn:hover{
+    transform:translateY(-2px);
+    background:var(--primary-dark);
+    box-shadow:0 10px 24px rgba(41,34,115,.18);
+  }
+
+  .mc-btn-white{
+    background:#fff;
+    color:#352e7b;
+  }
+
+  .mc-btn-white:hover{ background:#f7f6ff; }
+
+  .mc-btn-ghost{
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--ink);
+    box-shadow:none;
+  }
+
+  .mc-btn-ghost:hover{ background:var(--soft); }
+
+  .mc-roadmap-card{
+    padding:28px;
+    border:1px solid rgba(255,255,255,.23);
+    border-radius:26px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(14px);
+    box-shadow:0 28px 70px rgba(24,17,84,.24);
+  }
+
+  .mc-mini-label{
+    margin-bottom:16px;
+    color:rgba(255,255,255,.72);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .mc-roadmap{
+    display:grid;
+    gap:10px;
+  }
+
+  .mc-roadmap-item{
+    display:grid;
+    grid-template-columns:38px 1fr;
+    gap:12px;
+    align-items:center;
+    padding:12px;
+    border-radius:15px;
+    background:rgba(255,255,255,.09);
+  }
+
+  .mc-roadmap-num{
+    display:grid;
+    width:38px;
+    height:38px;
+    place-items:center;
+    border-radius:50%;
+    background:#fff;
+    color:#5044da;
+    font-weight:900;
+  }
+
+  .mc-roadmap-item strong{
+    display:block;
+    color:#fff;
+    font-size:14px;
+  }
+
+  .mc-roadmap-item span{
+    color:rgba(255,255,255,.66);
+    font-size:12px;
+  }
+
+  /* PROGRESS */
+  .mc-progress-shell{
+    position:sticky;
+    top:0;
+    z-index:50;
+    padding:13px 0;
+    border-bottom:1px solid var(--line);
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(12px);
+  }
+
+  .mc-progress-row{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:14px;
+    align-items:center;
+  }
+
+  .mc-progress-label,
+  .mc-progress-percent{
+    font-size:13px;
+    font-weight:900;
+    white-space:nowrap;
+  }
+
+  .mc-progress-track{
+    height:9px;
+    overflow:hidden;
+    border-radius:999px;
+    background:#eceef3;
+  }
+
+  .mc-progress-bar{
+    width:0%;
+    height:100%;
+    border-radius:inherit;
+    background:linear-gradient(90deg,var(--primary),#9188ff);
+    transition:width .3s ease;
+  }
+
+  /* MAIN */
+  .mc-main{
+    padding:58px 0 90px;
+  }
+
+  .mc-section{
+    scroll-margin-top:92px;
+    margin-bottom:76px;
+  }
+
+  .mc-section-head{
+    max-width:820px;
+    margin-bottom:28px;
+  }
+
+  .mc-step{
+    display:inline-block;
+    margin-bottom:10px;
+    color:var(--primary);
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .mc-section h2{
+    margin:0 0 10px;
+    font-size:clamp(30px,4vw,46px);
+    line-height:1.06;
+    letter-spacing:-.04em;
+  }
+
+  .mc-lede{
+    margin:0;
+    color:var(--muted);
+    font-size:18px;
+  }
+
+  .mc-grid-2{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:20px;
+  }
+
+  .mc-grid-3{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .mc-grid-4{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:16px;
+  }
+
+  .mc-card{
+    padding:26px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:#fff;
+    box-shadow:var(--shadow);
+  }
+
+  .mc-card-soft{
+    background:var(--soft);
+    box-shadow:none;
+  }
+
+  .mc-card h3{
+    margin:0 0 8px;
+    font-size:21px;
+  }
+
+  .mc-card p{ color:var(--muted); }
+
+  .mc-icon{
+    display:grid;
+    width:52px;
+    height:52px;
+    margin-bottom:15px;
+    place-items:center;
+    border-radius:16px;
+    background:var(--primary-soft);
+    font-size:26px;
+  }
+
+  /* PRINCIPLES */
+  .mc-principle{
+    position:relative;
+    width:100%;
+    min-height:210px;
+    padding:24px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:#fff;
+    text-align:left;
+    box-shadow:var(--shadow);
+    transition:.18s ease;
+  }
+
+  .mc-principle:hover{
+    transform:translateY(-3px);
+    border-color:#d4d0ff;
+  }
+
+  .mc-principle.active{
+    border-color:var(--primary);
+    background:var(--primary-soft);
+  }
+
+  .mc-principle-number{
+    margin-bottom:12px;
+    color:var(--primary);
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+
+  .mc-principle h3{
+    margin:0 0 8px;
+    font-size:21px;
+  }
+
+  .mc-principle p{
+    margin:0;
+    color:var(--muted);
+  }
+
+  .mc-principle-reveal{
+    display:none;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid rgba(101,88,245,.18);
+    color:#514b70;
+    font-size:13px;
+    font-weight:700;
+  }
+
+  .mc-principle.active .mc-principle-reveal{ display:block; }
+
+  /* FORM */
+  .mc-field{ margin-bottom:17px; }
+  .mc-field:last-child{ margin-bottom:0; }
+
+  .mc-field label{
+    display:block;
+    margin-bottom:7px;
+    font-size:13px;
+    font-weight:900;
+  }
+
+  .mc-field input,
+  .mc-field textarea,
+  .mc-field select{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid #d7dce5;
+    border-radius:12px;
+    outline:none;
+    background:#fff;
+    color:var(--ink);
+    transition:.15s ease;
+  }
+
+  .mc-field textarea{
+    min-height:120px;
+    resize:vertical;
+  }
+
+  .mc-field input:focus,
+  .mc-field textarea:focus,
+  .mc-field select:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(101,88,245,.1);
+  }
+
+  .mc-helper{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  .mc-checkline{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    padding:13px 0;
+    border-bottom:1px solid var(--line);
+  }
+
+  .mc-checkline:last-child{ border-bottom:0; }
+
+  .mc-checkline input{
+    flex:0 0 auto;
+    width:21px;
+    height:21px;
+    margin-top:2px;
+    accent-color:var(--primary);
+  }
+
+  .mc-checkline strong{
+    display:block;
+    margin-bottom:2px;
+  }
+
+  .mc-checkline small{
+    display:block;
+    color:var(--muted);
+    font-size:13px;
+  }
+
+  .mc-action-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:18px;
+  }
+
+  /* CHECK-IN */
+  .mc-word-display{
+    display:grid;
+    min-height:150px;
+    place-items:center;
+    padding:22px;
+    border:1px dashed #c9c6f4;
+    border-radius:20px;
+    background:#faf9ff;
+    color:var(--primary);
+    font-size:clamp(34px,6vw,64px);
+    font-weight:900;
+    letter-spacing:-.04em;
+    text-align:center;
+  }
+
+  .mc-scale-row{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:12px;
+    align-items:center;
+    margin-top:12px;
+  }
+
+  .mc-scale-row input{ width:100%; accent-color:var(--primary); }
+
+  .mc-scale-value{
+    display:grid;
+    width:46px;
+    height:46px;
+    place-items:center;
+    border-radius:50%;
+    background:var(--primary-soft);
+    color:var(--primary);
+    font-weight:900;
+  }
+
+  /* CALLOUT */
+  .mc-callout{
+    padding:20px;
+    border-left:4px solid var(--primary);
+    border-radius:12px;
+    background:var(--primary-soft);
+  }
+
+  .mc-callout strong{
+    display:block;
+    margin-bottom:4px;
+  }
+
+  .mc-callout p{
+    margin:0;
+    color:#554d77;
+  }
+
+  .mc-callout-teal{
+    border-left-color:var(--teal);
+    background:var(--teal-soft);
+  }
+
+  .mc-callout-gold{
+    border-left-color:var(--gold);
+    background:var(--gold-soft);
+  }
+
+  /* TABLES */
+  .mc-table-wrap{
+    width:100%;
+    overflow-x:auto;
+    margin-top:20px;
+    border:1px solid var(--line);
+    border-radius:16px;
+  }
+
+  .mc-table{
+    width:100%;
+    min-width:840px;
+    border-collapse:collapse;
+    background:#fff;
+  }
+
+  .mc-table th,
+  .mc-table td{
+    padding:13px;
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    vertical-align:top;
+    font-size:13px;
+  }
+
+  .mc-table th{
+    background:#f8f9fb;
+    color:#4b5363;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+  }
+
+  .mc-table tr:last-child td{ border-bottom:0; }
+
+  .mc-empty{
+    padding:28px !important;
+    color:var(--muted);
+    text-align:center !important;
+  }
+
+  .mc-delete{
+    border:0;
+    background:transparent;
+    color:var(--red);
+    font-size:12px;
+    font-weight:900;
+  }
+
+  /* CAREER COMPASS */
+  .mc-compass-card{
+    position:relative;
+    overflow:hidden;
+  }
+
+  .mc-compass-card:after{
+    content:"";
+    position:absolute;
+    right:-42px;
+    bottom:-42px;
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:var(--primary-soft);
+    opacity:.65;
+  }
+
+  .mc-compass-output{
+    min-height:160px;
+    padding:22px;
+    border-radius:18px;
+    background:#17152b;
+    color:#f5f3ff;
+    white-space:pre-wrap;
+  }
+
+  /* IDEAL DAY */
+  .mc-day-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+  }
+
+  /* SEARCH FILTER */
+  .mc-filter-box{
+    padding:22px;
+    border-radius:18px;
+    background:var(--soft);
+    border:1px solid var(--line);
+  }
+
+  .mc-filter-box h3{ margin-top:0; }
+
+  /* QUESTIONS */
+  .mc-question-stack{
+    display:grid;
+    gap:10px;
+  }
+
+  .mc-question-pill{
+    padding:14px 16px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#fff;
+    color:var(--ink);
+    font-size:14px;
+  }
+
+  /* AI */
+  .mc-ai-box{
+    padding:24px;
+    border-radius:20px;
+    background:linear-gradient(135deg,#17152b,#2f2a70);
+    color:#fff;
+  }
+
+  .mc-ai-box h3{ color:#fff; }
+
+  .mc-ai-box p{ color:rgba(255,255,255,.76); }
+
+  /* ACTION */
+  .mc-action-card{
+    padding:36px;
+    border-radius:28px;
+    color:#fff;
+    background:
+      radial-gradient(circle at 85% 15%,rgba(255,255,255,.18),transparent 26%),
+      linear-gradient(135deg,#25205c,#6558f5);
+    box-shadow:0 24px 50px rgba(45,37,117,.18);
+  }
+
+  .mc-action-card h2{ color:#fff; }
+
+  .mc-action-card p{ color:rgba(255,255,255,.82); }
+
+  .mc-summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin:24px 0;
+  }
+
+  .mc-summary-box{
+    padding:16px;
+    border-radius:15px;
+    background:rgba(255,255,255,.12);
+  }
+
+  .mc-summary-box strong{
+    display:block;
+    color:#fff;
+    font-size:25px;
+  }
+
+  .mc-summary-box span{
+    color:rgba(255,255,255,.7);
+    font-size:12px;
+  }
+
+  .mc-commitment-preview{
+    margin-top:20px;
+    padding:20px;
+    border-radius:16px;
+    background:rgba(255,255,255,.12);
+    white-space:pre-wrap;
+  }
+
+  /* TOAST */
+  .mc-toast{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    z-index:9999;
+    max-width:min(360px,calc(100% - 44px));
+    padding:13px 16px;
+    border-radius:12px;
+    background:#17152b;
+    color:#fff;
+    box-shadow:0 12px 32px rgba(0,0,0,.2);
+    opacity:0;
+    transform:translateY(12px);
+    pointer-events:none;
+    transition:.2s ease;
+  }
+
+  .mc-toast.show{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media(max-width:900px){
+    .mc-hero-grid,
+    .mc-grid-2,
+    .mc-grid-3,
+    .mc-grid-4,
+    .mc-summary,
+    .mc-day-grid{
+      grid-template-columns:1fr;
+    }
+
+    .mc-hero{ padding:54px 0; }
+  }
+
+  @media(max-width:560px){
+    .mc-wrap{ width:min(100% - 22px,1180px); }
+    .mc-hero h1{ font-size:44px; }
+    .mc-card,
+    .mc-action-card{ padding:20px; border-radius:18px; }
+    .mc-progress-label{ display:none; }
+    .mc-progress-row{ grid-template-columns:1fr auto; }
+    .mc-section{ margin-bottom:56px; }
+  }
+
+  @media print{
+    .mc-hero,
+    .mc-progress-shell,
+    .mc-btn,
+    .mc-delete,
+    .mc-toast{
+      display:none !important;
+    }
+
+    .mc-section{ break-inside:avoid; }
+    .mc-main{ padding-top:0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="midcareer-pivot-lab">
+
+  <!-- HERO -->
+  <section class="mc-hero">
+    <div class="mc-wrap mc-hero-grid">
+
+      <div>
+        <div class="mc-eyebrow">🧭 Mid-Career Pivot Lab</div>
+
+        <h1>Own your next move.</h1>
+
+        <p>
+          You are not starting over. You are starting with experience.
+          Use what your career has already taught you to define what should
+          come next—and build a job search around it.
+        </p>
+
+        <div class="mc-hero-actions">
+          <button class="mc-btn mc-btn-white" data-scroll="#mc-checkin">
+            Start the Lab →
+          </button>
+
+          <button class="mc-btn" data-scroll="#mc-career-stops">
+            Map My Career
+          </button>
+        </div>
+      </div>
+
+      <div class="mc-roadmap-card">
+        <div class="mc-mini-label">Your next-move roadmap</div>
+
+        <div class="mc-roadmap">
+          <div class="mc-roadmap-item">
+            <div class="mc-roadmap-num">1</div>
+            <div>
+              <strong>Check in</strong>
+              <span>Name where your career is today.</span>
+            </div>
+          </div>
+
+          <div class="mc-roadmap-item">
+            <div class="mc-roadmap-num">2</div>
+            <div>
+              <strong>Map the stops</strong>
+              <span>Keep the lessons. Leave the rest.</span>
+            </div>
+          </div>
+
+          <div class="mc-roadmap-item">
+            <div class="mc-roadmap-num">3</div>
+            <div>
+              <strong>Build your compass</strong>
+              <span>Interests, values, strengths, and derailers.</span>
+            </div>
+          </div>
+
+          <div class="mc-roadmap-item">
+            <div class="mc-roadmap-num">4</div>
+            <div>
+              <strong>Design the work</strong>
+              <span>Define what an energizing day actually looks like.</span>
+            </div>
+          </div>
+
+          <div class="mc-roadmap-item">
+            <div class="mc-roadmap-num">5</div>
+            <div>
+              <strong>Choose the next chapter</strong>
+              <span>Turn reflection into a target.</span>
+            </div>
+          </div>
+
+          <div class="mc-roadmap-item">
+            <div class="mc-roadmap-num">6</div>
+            <div>
+              <strong>Close the gaps</strong>
+              <span>Skills, conversations, and development.</span>
+            </div>
+          </div>
+
+          <div class="mc-roadmap-item">
+            <div class="mc-roadmap-num">7</div>
+            <div>
+              <strong>Commit</strong>
+              <span>Leave with a concrete next step.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <div class="mc-progress-shell">
+    <div class="mc-wrap mc-progress-row">
+      <div class="mc-progress-label">Your progress</div>
+      <div class="mc-progress-track">
+        <div class="mc-progress-bar" id="mc-progress-bar"></div>
+      </div>
+      <div class="mc-progress-percent" id="mc-progress-percent">0%</div>
+    </div>
+  </div>
+
+  <main class="mc-main">
+    <div class="mc-wrap">
+
+      <!-- CHECK IN -->
+      <section class="mc-section" id="mc-checkin">
+        <div class="mc-section-head">
+          <span class="mc-step">Career check-in</span>
+          <h2>What word describes your career right now?</h2>
+          <p class="mc-lede">
+            Before deciding where to go next, name what this season feels like.
+            There is no “correct” answer.
+          </p>
+        </div>
+
+        <div class="mc-grid-2">
+          <div class="mc-card">
+            <div class="mc-field">
+              <label for="mc-career-word">Your one word</label>
+              <input id="mc-career-word" type="text" placeholder="Stuck? Energized? Ready? Curious? Restless?">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-career-why">Why that word?</label>
+              <textarea id="mc-career-why" placeholder="What is happening in your work or life that makes this word fit?"></textarea>
+            </div>
+
+            <label class="mc-checkline">
+              <input type="checkbox" class="mc-task" data-task="checkin">
+              <span>
+                <strong>I named where I am.</strong>
+                <small>I can describe what is driving my desire for change.</small>
+              </span>
+            </label>
+          </div>
+
+          <div class="mc-card mc-card-soft">
+            <div class="mc-word-display" id="mc-word-display">YOUR WORD</div>
+
+            <div style="margin-top:22px;">
+              <strong>How satisfied are you with your current work?</strong>
+              <div class="mc-scale-row">
+                <span style="color:var(--muted);font-size:12px;">1</span>
+                <input id="mc-satisfaction" type="range" min="1" max="10" value="5">
+                <div class="mc-scale-value" id="mc-satisfaction-value">5</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRINCIPLES -->
+      <section class="mc-section" id="mc-principles">
+        <div class="mc-section-head">
+          <span class="mc-step">Five career principles</span>
+          <h2>A mid-career search starts with a different mindset.</h2>
+          <p class="mc-lede">
+            Click each principle. These ideas become the lens for the rest of the lab.
+          </p>
+        </div>
+
+        <div class="mc-grid-3">
+          <button class="mc-principle" type="button" data-principle>
+            <div class="mc-principle-number">Principle 1</div>
+            <h3>Own your career.</h3>
+            <p>No one will care about your career more than you do.</p>
+            <div class="mc-principle-reveal">
+              Your experience has value—but you have to name it, communicate it,
+              and decide where you want to use it next.
+            </div>
+          </button>
+
+          <button class="mc-principle" type="button" data-principle>
+            <div class="mc-principle-number">Principle 2</div>
+            <h3>Every stop matters.</h3>
+            <p>Even the roles you disliked taught you something useful.</p>
+            <div class="mc-principle-reveal">
+              The question is not “Was that job a mistake?” It is “What did I keep,
+              and what am I ready to leave behind?”
+            </div>
+          </button>
+
+          <button class="mc-principle" type="button" data-principle>
+            <div class="mc-principle-number">Principle 3</div>
+            <h3>Careers are rarely linear.</h3>
+            <p>Your next move does not need to look like the obvious next rung.</p>
+            <div class="mc-principle-reveal">
+              Adjacent roles, different industries, project work, consulting,
+              lateral moves, and new environments can all be growth.
+            </div>
+          </button>
+
+          <button class="mc-principle" type="button" data-principle>
+            <div class="mc-principle-number">Principle 4</div>
+            <h3>Growth is bigger than promotion.</h3>
+            <p>More responsibility is only one form of progress.</p>
+            <div class="mc-principle-reveal">
+              Growth can mean better-fit work, new capability, autonomy, flexibility,
+              impact, stronger leadership, or a healthier environment.
+            </div>
+          </button>
+
+          <button class="mc-principle" type="button" data-principle>
+            <div class="mc-principle-number">Principle 5</div>
+            <h3>Fundamentals still matter.</h3>
+            <p>Experience does not replace professionalism and learning.</p>
+            <div class="mc-principle-reveal">
+              Reliability, responsiveness, professional communication, current skills,
+              and AI fluency still shape how others experience working with you.
+            </div>
+          </button>
+
+          <div class="mc-card mc-card-soft">
+            <div class="mc-icon">💡</div>
+            <h3>You are not starting over.</h3>
+            <p>
+              A pivot is not an eraser. The goal is to carry forward the parts of your
+              career that still fit and deliberately stop carrying the parts that do not.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CAREER STOPS -->
+      <section class="mc-section" id="mc-career-stops">
+        <div class="mc-section-head">
+          <span class="mc-step">Tool 1 · Career stops</span>
+          <h2>Your résumé lists jobs. This exercise finds the lessons.</h2>
+          <p class="mc-lede">
+            Add meaningful stops from your career. For each one, decide what you
+            are taking with you—and what you do not want to repeat.
+          </p>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-grid-3">
+            <div class="mc-field">
+              <label for="mc-stop-role">Career stop</label>
+              <input id="mc-stop-role" type="text" placeholder="Role, company, project, season...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-stop-kept">What I kept</label>
+              <input id="mc-stop-kept" type="text" placeholder="Skills, lessons, strengths, relationships...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-stop-left">What I left behind</label>
+              <input id="mc-stop-left" type="text" placeholder="Environment, tasks, habits, conditions...">
+            </div>
+          </div>
+
+          <div class="mc-action-row">
+            <button class="mc-btn" id="mc-add-stop">+ Add Career Stop</button>
+          </div>
+
+          <div class="mc-table-wrap">
+            <table class="mc-table">
+              <thead>
+                <tr>
+                  <th>Career Stop</th>
+                  <th>What I Kept</th>
+                  <th>What I Left Behind</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="mc-stops-body">
+                <tr>
+                  <td colspan="4" class="mc-empty">Add your first career stop above.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <label class="mc-checkline" style="margin-top:14px;">
+            <input type="checkbox" class="mc-task" data-task="career-stops">
+            <span>
+              <strong>I can see patterns across my career stops.</strong>
+              <small>I know at least one thing I want more of—and one thing I do not want again.</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- COMPASS -->
+      <section class="mc-section" id="mc-compass">
+        <div class="mc-section-head">
+          <span class="mc-step">Tool 2 · Career compass</span>
+          <h2>What should your next role be built around?</h2>
+          <p class="mc-lede">
+            Your next job should not be based on title alone. Build a clearer picture
+            from your interests, values, strengths, and known derailers.
+          </p>
+        </div>
+
+        <div class="mc-grid-2">
+          <div class="mc-card mc-compass-card">
+            <div class="mc-field">
+              <label for="mc-interests">Interests</label>
+              <textarea id="mc-interests" placeholder="What kinds of problems, topics, customers, industries, or challenges hold your attention?"></textarea>
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-values">Values</label>
+              <textarea id="mc-values" placeholder="What matters most in how you work? Autonomy? Stability? Mission? Flexibility? Team? Compensation? Learning?"></textarea>
+            </div>
+          </div>
+
+          <div class="mc-card mc-compass-card">
+            <div class="mc-field">
+              <label for="mc-strengths">Strengths</label>
+              <textarea id="mc-strengths" placeholder="What do people consistently trust you to do well? What feels natural to you but valuable to others?"></textarea>
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-derailers">Potential derailers</label>
+              <textarea id="mc-derailers" placeholder="What environments, habits, blind spots, or conditions can pull you off course?"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="mc-card" style="margin-top:20px;">
+          <h3>Career statement builder</h3>
+          <p style="color:var(--muted);">
+            This is not a résumé summary. It is a decision filter for your search.
+          </p>
+
+          <button class="mc-btn" id="mc-build-statement">Build My Career Statement</button>
+
+          <div class="mc-compass-output" id="mc-career-statement" style="margin-top:18px;">
+            Add your interests, values, strengths, and derailers, then build your statement.
+          </div>
+
+          <label class="mc-checkline" style="margin-top:14px;">
+            <input type="checkbox" class="mc-task" data-task="compass">
+            <span>
+              <strong>I have a career compass.</strong>
+              <small>I can explain what I want my next move to include—not just what title I want.</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- IDEAL DAY -->
+      <section class="mc-section" id="mc-ideal-day">
+        <div class="mc-section-head">
+          <span class="mc-step">Tool 3 · Ideal day</span>
+          <h2>If you could wave a magic wand, what would a great workday contain?</h2>
+          <p class="mc-lede">
+            Think beyond title and salary. What are you doing, who are you with,
+            where are you working, what outcomes are you creating, and how do you feel?
+          </p>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-day-grid">
+            <div class="mc-field">
+              <label for="mc-day-time">Time / part of day</label>
+              <input id="mc-day-time" type="text" placeholder="8:00 AM, morning, afternoon...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-day-doing">What are you doing?</label>
+              <input id="mc-day-doing" type="text" placeholder="Leading, writing, coaching, analyzing, building...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-day-with">Who are you with?</label>
+              <input id="mc-day-with" type="text" placeholder="Clients, team, executives, customers, no one...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-day-where">Where are you?</label>
+              <input id="mc-day-where" type="text" placeholder="Remote, office, field, travel, mixed...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-day-outcome">What outcome are you creating?</label>
+              <input id="mc-day-outcome" type="text" placeholder="Clarity, growth, revenue, progress, learning...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-day-emotion">How do you feel when it is complete?</label>
+              <input id="mc-day-emotion" type="text" placeholder="Energized, useful, proud, calm, challenged...">
+            </div>
+          </div>
+
+          <div class="mc-action-row">
+            <button class="mc-btn" id="mc-add-day">+ Add to Ideal Day</button>
+          </div>
+
+          <div class="mc-table-wrap">
+            <table class="mc-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Doing</th>
+                  <th>With</th>
+                  <th>Where</th>
+                  <th>Outcome</th>
+                  <th>Emotion</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="mc-day-body">
+                <tr>
+                  <td colspan="7" class="mc-empty">Build the first part of your ideal day above.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <label class="mc-checkline" style="margin-top:14px;">
+            <input type="checkbox" class="mc-task" data-task="ideal-day">
+            <span>
+              <strong>I can picture the work—not just the title.</strong>
+              <small>I know which activities and conditions create energy for me.</small>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- NEXT CHAPTER -->
+      <section class="mc-section" id="mc-next-chapter">
+        <div class="mc-section-head">
+          <span class="mc-step">Tool 4 · Next-move filter</span>
+          <h2>Now turn reflection into a search target.</h2>
+          <p class="mc-lede">
+            Mid-career searches get easier when you stop looking for “something better”
+            and start defining what better actually means.
+          </p>
+        </div>
+
+        <div class="mc-grid-2">
+          <div class="mc-card">
+            <div class="mc-field">
+              <label for="mc-target-role">Roles or experiences I want to explore</label>
+              <textarea id="mc-target-role" placeholder="Example: Customer Experience Director, Learning & Development leader, independent consultant, adjacent strategy role..."></textarea>
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-target-industries">Industries / environments I am curious about</label>
+              <textarea id="mc-target-industries" placeholder="What settings might fit the work you want to do?"></textarea>
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-target-impact">Impact I want to create</label>
+              <textarea id="mc-target-impact" placeholder="What should be different because you did the work well?"></textarea>
+            </div>
+          </div>
+
+          <div class="mc-card">
+            <div class="mc-filter-box">
+              <h3>More of...</h3>
+              <textarea id="mc-more-of" placeholder="Activities, people, conditions, responsibilities, pace, flexibility..."></textarea>
+            </div>
+
+            <div class="mc-filter-box" style="margin-top:12px;">
+              <h3>Less of...</h3>
+              <textarea id="mc-less-of" placeholder="What you do not want to recreate from previous roles..."></textarea>
+            </div>
+
+            <div class="mc-filter-box" style="margin-top:12px;">
+              <h3>I am curious about...</h3>
+              <textarea id="mc-curious-about" placeholder="Adjacent functions, industries, consulting, leadership, new capabilities..."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <label class="mc-checkline" style="margin-top:16px;">
+          <input type="checkbox" class="mc-task" data-task="target">
+          <span>
+            <strong>I have a target—not a cage.</strong>
+            <small>I know what I am exploring while staying open to a non-linear next move.</small>
+          </span>
+        </label>
+      </section>
+
+      <!-- CAREER CONVERSATIONS -->
+      <section class="mc-section" id="mc-conversations">
+        <div class="mc-section-head">
+          <span class="mc-step">Tool 5 · Career conversations</span>
+          <h2>Use conversations to test your assumptions.</h2>
+          <p class="mc-lede">
+            Before deciding you need a new degree, a complete reinvention, or a specific
+            title, talk to people who are already close to the work you are considering.
+          </p>
+        </div>
+
+        <div class="mc-grid-2">
+          <div class="mc-card">
+            <div class="mc-field">
+              <label for="mc-conversation-role">Role / field I want to learn about</label>
+              <input id="mc-conversation-role" type="text" placeholder="Example: VP Customer Experience">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-conversation-person">Person I could speak with</label>
+              <input id="mc-conversation-person" type="text" placeholder="Name, former colleague, alumni contact, recruiter...">
+            </div>
+
+            <button class="mc-btn" id="mc-build-questions">Build My Questions</button>
+          </div>
+
+          <div class="mc-card">
+            <h3>Questions to explore</h3>
+            <div class="mc-question-stack" id="mc-question-stack">
+              <div class="mc-question-pill">Add a role or field and build your questions.</div>
+            </div>
+
+            <div class="mc-action-row">
+              <button class="mc-btn mc-btn-ghost" id="mc-copy-questions">Copy Questions</button>
+            </div>
+          </div>
+        </div>
+
+        <label class="mc-checkline" style="margin-top:16px;">
+          <input type="checkbox" class="mc-task" data-task="conversation">
+          <span>
+            <strong>I identified a career conversation to have.</strong>
+            <small>I will use real people to learn about the work—not just job descriptions.</small>
+          </span>
+        </label>
+      </section>
+
+      <!-- GAP PLAN -->
+      <section class="mc-section" id="mc-gaps">
+        <div class="mc-section-head">
+          <span class="mc-step">Tool 6 · Development plan</span>
+          <h2>What would make you more credible for the work you want next?</h2>
+          <p class="mc-lede">
+            Do not collect training for the sake of collecting training. Identify the
+            capability, then choose the smallest useful way to build evidence.
+          </p>
+        </div>
+
+        <div class="mc-card">
+          <div class="mc-grid-4">
+            <div class="mc-field">
+              <label for="mc-gap-skill">Capability to strengthen</label>
+              <input id="mc-gap-skill" type="text" placeholder="AI workflow design, finance, facilitation...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-gap-action">How I will practice it</label>
+              <input id="mc-gap-action" type="text" placeholder="Project, stretch assignment, portfolio piece...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-gap-resource">Resource</label>
+              <input id="mc-gap-resource" type="text" placeholder="Course, mentor, book, certification...">
+            </div>
+
+            <div class="mc-field">
+              <label for="mc-gap-date">By when?</label>
+              <input id="mc-gap-date" type="date">
+            </div>
+          </div>
+
+          <div class="mc-action-row">
+            <button class="mc-btn" id="mc-add-gap">+ Add Development Goal</button>
+          </div>
+
+          <div class="mc-table-wrap">
+            <table class="mc-table">
+              <thead>
+                <tr>
+                  <th>Capability</th>
+                  <th>Practice / Evidence</th>
+                  <th>Resource</th>
+                  <th>Target Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="mc-gap-body">
+                <tr>
+                  <td colspan="5" class="mc-empty">Add one capability that would strengthen your next move.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <label class="mc-checkline" style="margin-top:14px;">
+            <input type="checkbox" class="mc-task" data-task="development">
+            <span>
+              <strong>I know what I need to strengthen.</strong>
+              <small>I have at least one concrete way to build evidence—not just consume content.</small>
+            </span>
+          </label>
+        </div>
+
+        <div class="mc-ai-box" style="margin-top:20px;">
+          <h3>AI is a career fundamental now—but use it like a professional.</h3>
+          <p>
+            Use AI to compare job descriptions, identify recurring skill themes,
+            translate accomplishments into transferable language, rehearse interviews,
+            or brainstorm adjacent roles. Do not use it to invent experience you do not have.
+          </p>
+        </div>
+      </section>
+
+      <!-- SEARCH PLAN -->
+      <section class="mc-section" id="mc-search-plan">
+        <div class="mc-section-head">
+          <span class="mc-step">Turn the work into a search</span>
+          <h2>Build your first version of the market test.</h2>
+          <p class="mc-lede">
+            You do not need perfect certainty before you move. You need enough clarity
+            to test your direction with real roles, real conversations, and real feedback.
+          </p>
+        </div>
+
+        <div class="mc-grid-3">
+          <div class="mc-card">
+            <div class="mc-icon">🔎</div>
+            <h3>Search titles</h3>
+            <div class="mc-field">
+              <textarea id="mc-search-titles" placeholder="List 3-5 titles or adjacent roles you will search."></textarea>
+            </div>
+          </div>
+
+          <div class="mc-card">
+            <div class="mc-icon">🏢</div>
+            <h3>Organizations</h3>
+            <div class="mc-field">
+              <textarea id="mc-search-orgs" placeholder="List organizations, industries, or company types that fit your filters."></textarea>
+            </div>
+          </div>
+
+          <div class="mc-card">
+            <div class="mc-icon">🤝</div>
+            <h3>People</h3>
+            <div class="mc-field">
+              <textarea id="mc-search-people" placeholder="List people, alumni, recruiters, former colleagues, or connectors to contact."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <label class="mc-checkline" style="margin-top:16px;">
+          <input type="checkbox" class="mc-task" data-task="market-test">
+          <span>
+            <strong>I have enough clarity to test the market.</strong>
+            <small>I do not need to know my entire future before taking the next useful step.</small>
+          </span>
+        </label>
+      </section>
+
+      <!-- ACTION COMMITMENT -->
+      <section class="mc-section" id="mc-action">
+        <div class="mc-action-card">
+          <span class="mc-step" style="color:#dcd8ff;">Action commitment</span>
+
+          <h2>What is your next step?</h2>
+
+          <p>
+            Reflection only matters if it changes what you do next.
+            Choose one move you will make while the insight is still fresh.
+          </p>
+
+          <div class="mc-grid-2" style="margin-top:22px;">
+            <div>
+              <div class="mc-field">
+                <label for="mc-next-step" style="color:#fff;">My next step</label>
+                <textarea id="mc-next-step" placeholder="Example: Schedule two career conversations, update my target-role list, build a project that proves a missing skill..." style="background:rgba(255,255,255,.96);"></textarea>
+              </div>
+
+              <div class="mc-field">
+                <label for="mc-next-date" style="color:#fff;">I will do this by</label>
+                <input id="mc-next-date" type="date" style="background:rgba(255,255,255,.96);">
+              </div>
+
+              <label class="mc-checkline" style="border-color:rgba(255,255,255,.16);">
+                <input type="checkbox" class="mc-task" data-task="commitment">
+                <span>
+                  <strong style="color:#fff;">I am committing to this next step.</strong>
+                  <small style="color:rgba(255,255,255,.68);">Specific beats inspirational.</small>
+                </span>
+              </label>
+            </div>
+
+            <div>
+              <div class="mc-summary">
+                <div class="mc-summary-box">
+                  <strong id="mc-summary-progress">0%</strong>
+                  <span>Lab completed</span>
+                </div>
+
+                <div class="mc-summary-box">
+                  <strong id="mc-summary-stops">0</strong>
+                  <span>Career stops mapped</span>
+                </div>
+
+                <div class="mc-summary-box">
+                  <strong id="mc-summary-day">0</strong>
+                  <span>Ideal-day moments</span>
+                </div>
+
+                <div class="mc-summary-box">
+                  <strong id="mc-summary-gaps">0</strong>
+                  <span>Development goals</span>
+                </div>
+              </div>
+
+              <div class="mc-commitment-preview" id="mc-commitment-preview">
+                Your action commitment will appear here.
+              </div>
+            </div>
+          </div>
+
+          <div class="mc-action-row">
+            <button class="mc-btn mc-btn-white" id="mc-build-commitment">Build My Commitment</button>
+            <button class="mc-btn" onclick="window.print()">Print My Career Plan</button>
+            <button class="mc-btn" id="mc-reset">Reset Lab</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div class="mc-toast" id="mc-toast"></div>
+
+</div>
+
+<script>
+(function(){
+
+  const root = document.getElementById("midcareer-pivot-lab");
+  if(!root) return;
+
+  const $ = s => root.querySelector(s);
+  const $$ = s => Array.from(root.querySelectorAll(s));
+
+  function toast(message){
+    const el = $("#mc-toast");
+    el.textContent = message;
+    el.classList.add("show");
+    clearTimeout(window.mcToastTimer);
+    window.mcToastTimer = setTimeout(()=>el.classList.remove("show"),2200);
+  }
+
+  function esc(v){
+    return String(v || "")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+  }
+
+  function saveField(id){
+    const el = $("#"+id);
+    if(!el) return;
+    const key = "mc_"+id;
+    const saved = localStorage.getItem(key);
+    if(saved !== null) el.value = saved;
+    el.addEventListener("input",()=>{
+      localStorage.setItem(key,el.value);
+      if(id === "mc-career-word") updateWord();
+      if(id === "mc-next-step" || id === "mc-next-date") updateCommitmentPreview();
+    });
+  }
+
+  [
+    "mc-career-word","mc-career-why","mc-interests","mc-values","mc-strengths",
+    "mc-derailers","mc-target-role","mc-target-industries","mc-target-impact",
+    "mc-more-of","mc-less-of","mc-curious-about","mc-conversation-role",
+    "mc-conversation-person","mc-search-titles","mc-search-orgs","mc-search-people",
+    "mc-next-step","mc-next-date"
+  ].forEach(saveField);
+
+  $$("[data-scroll]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      const target = $(btn.dataset.scroll);
+      if(target) target.scrollIntoView({behavior:"smooth",block:"start"});
+    });
+  });
+
+  $$("[data-principle]").forEach(card=>{
+    card.addEventListener("click",()=>card.classList.toggle("active"));
+  });
+
+  $$(".mc-task").forEach(box=>{
+    const key = "mc_task_"+box.dataset.task;
+    box.checked = localStorage.getItem(key) === "1";
+    box.addEventListener("change",()=>{
+      localStorage.setItem(key,box.checked ? "1" : "0");
+      updateProgress();
+    });
+  });
+
+  function updateWord(){
+    const value = $("#mc-career-word").value.trim();
+    $("#mc-word-display").textContent = value || "YOUR WORD";
+  }
+  updateWord();
+
+  const sat = $("#mc-satisfaction");
+  const savedSat = localStorage.getItem("mc_satisfaction");
+  if(savedSat) sat.value = savedSat;
+  function updateSat(){
+    $("#mc-satisfaction-value").textContent = sat.value;
+    localStorage.setItem("mc_satisfaction",sat.value);
+  }
+  sat.addEventListener("input",updateSat);
+  updateSat();
+
+  /* CAREER STOPS */
+  let stops = [];
+  try{ stops = JSON.parse(localStorage.getItem("mc_stops") || "[]"); }
+  catch(e){ stops = []; }
+
+  function saveStops(){
+    localStorage.setItem("mc_stops",JSON.stringify(stops));
+    renderStops();
+    updateProgress();
+  }
+
+  function renderStops(){
+    const body = $("#mc-stops-body");
+    body.innerHTML = "";
+
+    if(!stops.length){
+      body.innerHTML = '<tr><td colspan="4" class="mc-empty">Add your first career stop above.</td></tr>';
+    }else{
+      stops.forEach((item,i)=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${esc(item.role)}</td>
+          <td>${esc(item.kept)}</td>
+          <td>${esc(item.left)}</td>
+          <td><button class="mc-delete" type="button">Remove</button></td>
+        `;
+        tr.querySelector(".mc-delete").addEventListener("click",()=>{
+          stops.splice(i,1);
+          saveStops();
+        });
+        body.appendChild(tr);
+      });
+    }
+    $("#mc-summary-stops").textContent = stops.length;
+  }
+
+  $("#mc-add-stop").addEventListener("click",()=>{
+    const role = $("#mc-stop-role").value.trim();
+    const kept = $("#mc-stop-kept").value.trim();
+    const left = $("#mc-stop-left").value.trim();
+
+    if(!role){ toast("Add a career stop first."); return; }
+
+    stops.push({role,kept,left});
+    $("#mc-stop-role").value = "";
+    $("#mc-stop-kept").value = "";
+    $("#mc-stop-left").value = "";
+    saveStops();
+    toast("Career stop added.");
+  });
+
+  renderStops();
+
+  /* CAREER STATEMENT */
+  $("#mc-build-statement").addEventListener("click",()=>{
+    const interests = $("#mc-interests").value.trim() || "work that genuinely interests me";
+    const values = $("#mc-values").value.trim() || "conditions that align with my values";
+    const strengths = $("#mc-strengths").value.trim() || "my strongest capabilities";
+    const derailers = $("#mc-derailers").value.trim() || "environments that pull me away from my best work";
+
+    const text =
+`I want my next chapter to let me use ${strengths} in work connected to ${interests}.
+
+I want to work in an environment where ${values} are visible in the way the organization operates.
+
+I also want to be deliberate about avoiding or managing ${derailers}.
+
+I will use this statement as a filter—not a rigid rule—while I explore roles, companies, and career conversations.`;
+
+    $("#mc-career-statement").textContent = text;
+    localStorage.setItem("mc_career_statement",text);
+    toast("Career statement built.");
+  });
+
+  const savedStatement = localStorage.getItem("mc_career_statement");
+  if(savedStatement) $("#mc-career-statement").textContent = savedStatement;
+
+  /* IDEAL DAY */
+  let dayItems = [];
+  try{ dayItems = JSON.parse(localStorage.getItem("mc_day_items") || "[]"); }
+  catch(e){ dayItems = []; }
+
+  function saveDay(){
+    localStorage.setItem("mc_day_items",JSON.stringify(dayItems));
+    renderDay();
+    updateProgress();
+  }
+
+  function renderDay(){
+    const body = $("#mc-day-body");
+    body.innerHTML = "";
+
+    if(!dayItems.length){
+      body.innerHTML = '<tr><td colspan="7" class="mc-empty">Build the first part of your ideal day above.</td></tr>';
+    }else{
+      dayItems.forEach((item,i)=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${esc(item.time)}</td>
+          <td>${esc(item.doing)}</td>
+          <td>${esc(item.withWho)}</td>
+          <td>${esc(item.where)}</td>
+          <td>${esc(item.outcome)}</td>
+          <td>${esc(item.emotion)}</td>
+          <td><button class="mc-delete" type="button">Remove</button></td>
+        `;
+        tr.querySelector(".mc-delete").addEventListener("click",()=>{
+          dayItems.splice(i,1);
+          saveDay();
+        });
+        body.appendChild(tr);
+      });
+    }
+    $("#mc-summary-day").textContent = dayItems.length;
+  }
+
+  $("#mc-add-day").addEventListener("click",()=>{
+    const item = {
+      time:$("#mc-day-time").value.trim(),
+      doing:$("#mc-day-doing").value.trim(),
+      withWho:$("#mc-day-with").value.trim(),
+      where:$("#mc-day-where").value.trim(),
+      outcome:$("#mc-day-outcome").value.trim(),
+      emotion:$("#mc-day-emotion").value.trim()
+    };
+
+    if(!item.doing){ toast("Add what you are doing first."); return; }
+
+    dayItems.push(item);
+
+    ["mc-day-time","mc-day-doing","mc-day-with","mc-day-where","mc-day-outcome","mc-day-emotion"]
+      .forEach(id=>$("#"+id).value="");
+
+    saveDay();
+    toast("Ideal-day moment added.");
+  });
+
+  renderDay();
+
+  /* CAREER QUESTIONS */
+  let builtQuestions = [];
+
+  $("#mc-build-questions").addEventListener("click",()=>{
+    const role = $("#mc-conversation-role").value.trim() || "this kind of work";
+    const person = $("#mc-conversation-person").value.trim();
+
+    builtQuestions = [
+      `What does strong performance in ${role} actually look like after the first 6-12 months?`,
+      `Which skills matter most in ${role} that are easy to underestimate from the outside?`,
+      `What backgrounds or experiences tend to translate well into ${role}?`,
+      `What would you recommend I learn, practice, or prove before pursuing ${role} seriously?`,
+      `If you were making this move mid-career, what would you want to understand before saying yes to the role?`
+    ];
+
+    const stack = $("#mc-question-stack");
+    stack.innerHTML = "";
+    builtQuestions.forEach(q=>{
+      const div = document.createElement("div");
+      div.className = "mc-question-pill";
+      div.textContent = q;
+      stack.appendChild(div);
+    });
+
+    if(person) toast(`Questions built for your conversation with ${person}.`);
+    else toast("Career-conversation questions built.");
+  });
+
+  $("#mc-copy-questions").addEventListener("click",async()=>{
+    if(!builtQuestions.length){
+      toast("Build your questions first.");
+      return;
+    }
+
+    const text = builtQuestions.map((q,i)=>`${i+1}. ${q}`).join("\n");
+    try{
+      await navigator.clipboard.writeText(text);
+      toast("Questions copied.");
+    }catch(e){
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      toast("Questions copied.");
+    }
+  });
+
+  /* DEVELOPMENT GOALS */
+  let gaps = [];
+  try{ gaps = JSON.parse(localStorage.getItem("mc_gaps") || "[]"); }
+  catch(e){ gaps = []; }
+
+  function saveGaps(){
+    localStorage.setItem("mc_gaps",JSON.stringify(gaps));
+    renderGaps();
+    updateProgress();
+  }
+
+  function renderGaps(){
+    const body = $("#mc-gap-body");
+    body.innerHTML = "";
+
+    if(!gaps.length){
+      body.innerHTML = '<tr><td colspan="5" class="mc-empty">Add one capability that would strengthen your next move.</td></tr>';
+    }else{
+      gaps.forEach((item,i)=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${esc(item.skill)}</td>
+          <td>${esc(item.action)}</td>
+          <td>${esc(item.resource)}</td>
+          <td>${esc(item.date)}</td>
+          <td><button class="mc-delete" type="button">Remove</button></td>
+        `;
+        tr.querySelector(".mc-delete").addEventListener("click",()=>{
+          gaps.splice(i,1);
+          saveGaps();
+        });
+        body.appendChild(tr);
+      });
+    }
+    $("#mc-summary-gaps").textContent = gaps.length;
+  }
+
+  $("#mc-add-gap").addEventListener("click",()=>{
+    const skill = $("#mc-gap-skill").value.trim();
+    const action = $("#mc-gap-action").value.trim();
+    const resource = $("#mc-gap-resource").value.trim();
+    const date = $("#mc-gap-date").value;
+
+    if(!skill){ toast("Add a capability first."); return; }
+
+    gaps.push({skill,action,resource,date});
+
+    $("#mc-gap-skill").value = "";
+    $("#mc-gap-action").value = "";
+    $("#mc-gap-resource").value = "";
+    $("#mc-gap-date").value = "";
+
+    saveGaps();
+    toast("Development goal added.");
+  });
+
+  renderGaps();
+
+  /* COMMITMENT */
+  function updateCommitmentPreview(){
+    const step = $("#mc-next-step").value.trim();
+    const date = $("#mc-next-date").value;
+
+    if(!step){
+      $("#mc-commitment-preview").textContent = "Your action commitment will appear here.";
+      return;
+    }
+
+    let formatted = "";
+    if(date){
+      const d = new Date(date+"T12:00:00");
+      formatted = d.toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"});
+    }
+
+    $("#mc-commitment-preview").textContent =
+      `My next move:\n${step}${formatted ? `\n\nI will do this by ${formatted}.` : ""}`;
+  }
+
+  $("#mc-build-commitment").addEventListener("click",()=>{
+    updateCommitmentPreview();
+    toast("Action commitment built.");
+  });
+
+  updateCommitmentPreview();
+
+  /* PROGRESS */
+  function updateProgress(){
+    const tasks = $$(".mc-task");
+    let available = tasks.length + 3;
+    let completed = tasks.filter(t=>t.checked).length;
+
+    if(stops.length) completed++;
+    if(dayItems.length) completed++;
+    if(gaps.length) completed++;
+
+    const percent = Math.round((completed / available) * 100);
+
+    $("#mc-progress-bar").style.width = percent+"%";
+    $("#mc-progress-percent").textContent = percent+"%";
+    $("#mc-summary-progress").textContent = percent+"%";
+    $("#mc-summary-stops").textContent = stops.length;
+    $("#mc-summary-day").textContent = dayItems.length;
+    $("#mc-summary-gaps").textContent = gaps.length;
+  }
+
+  updateProgress();
+
+  /* RESET */
+  $("#mc-reset").addEventListener("click",()=>{
+    if(!window.confirm("Reset the Mid-Career Pivot Lab? This removes saved responses from this browser.")) return;
+
+    Object.keys(localStorage)
+      .filter(k=>k.startsWith("mc_"))
+      .forEach(k=>localStorage.removeItem(k));
+
+    window.location.reload();
+  });
+
+})();
+</script>
+
+</body>
+</html>
